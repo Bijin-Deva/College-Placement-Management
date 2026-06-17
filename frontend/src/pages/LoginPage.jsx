@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import RegistrationPage from "./RegistrationPage";
 function LoginPage(){
     return(
         <div className="container" style={{backgroundColor:'rgba(0, 0, 0, 0)',borderRadius:'7px',height:'600px',width:'1100px',align:'center',
@@ -25,8 +27,20 @@ function LoginPage(){
                             <button className="btn btn-primary" style={{width: '100%',padding: '10px 15px',borderRadius: '4px', border: '1px solid #ccc',boxSizing: 'border-box' }}>Login</button>
                         </form>
                     </div><br />
-                    <h6 style={{marginLeft:'20px'}}>No account! <strong style={{color:'blue'}}>Register here</strong></h6>
-                    <h6 style={{marginLeft:'20px'}}>Forgot Password..? <strong style={{color:'blue'}}>Reset here</strong></h6>
+                    <h6 style={{ marginLeft: "20px" }}>
+                        No account!{" "}
+                        <strong>
+                        <Link to="/register">Register Here</Link>
+                        </strong>
+                    </h6>
+
+                    <h6 style={{ marginLeft: "20px" }}>
+                        Forgot Password!{" "}
+                        <strong>
+                        <Link to="/reset-password">Reset Here</Link>
+                        </strong>
+                    </h6>
+                    
                     <br /><br />
                     <p style={{textAlign:'center'}}>@All rights reserved 2026.<strong> Contact:</strong> admin@clg.com</p>
                 </div>
