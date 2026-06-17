@@ -3,7 +3,7 @@ import RegistrationPage from "./RegistrationPage";
 function LoginPage(){
     return(
         <div className="container" style={{backgroundColor:'rgba(0, 0, 0, 0)',borderRadius:'7px',height:'600px',width:'1100px',align:'center',
-        marginTop:'40px',overflow:'hidden',boxShadow:'0 4px 12px rgba(56, 230, 201, 0.89)',padding:'0'}}>
+        marginTop:'40px',overflow:'hidden',boxShadow:'0 4px 12px gray',padding:'0'}}>
             <div className="row">
                 <div className="col-md-6">
                     <img src="/LoginCard.jpg" alt="LoginCard" height='600px' width='550px' style={{borderRadius:'7px'}} />
@@ -11,7 +11,7 @@ function LoginPage(){
                 <div className="col-md-6 ">
                     <h1 style={{marginTop:'10px',fontFamily:'sans-serif'}}>Welcome!Great Day Ahead</h1>
                     <h4 style={{fontFamily:'cursive'}}>Login to continue....</h4>
-                    <div style={{border:'1px solid black',borderRadius:'7px',alignItems:'center',
+                    <div style={{boxShadow:'0 4px 12px gray',borderRadius:'7px',alignItems:'center',
                             height:'300px',width:'450px',marginTop:'25px',marginLeft:'20px',padding:'10px'}}>
                         <form>
                             <h4>Email: </h4>
