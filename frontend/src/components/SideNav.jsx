@@ -17,7 +17,6 @@ function SideNav(){
             <Link to="/dashboard/opportunities" style={{color:"white",display:'block',marginBottom:'10px'}}>Opportunities</Link>
             <Link to="/dashboard/courses" style={{color:"white",display:'block',marginBottom:'10px'}}>Courses</Link>
             <Link to="/dashboard/profile" style={{color:"white",display:'block',marginBottom:'10px'}}>Profile</Link>
-            <h1>Shadu baavaa pichodaaa....</h1>
             <button onClick={handleLogout}>Logout</button>
         </div>
     )

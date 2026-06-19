@@ -8,7 +8,7 @@ function DashboardLayout(){
             <Header />
             <div style={{display:'flex'}}>
                 <SideNav />
-                <main style={{padding:'20px',flex:1}}>
+                <main style={{padding:'10px',flex:1}}>
                     <Outlet />
                 </main>
             </div>
