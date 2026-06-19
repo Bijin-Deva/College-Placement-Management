@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Courses from "./pages/courses";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile.jsx";
+import Opportunities from "./pages/Opportunities.jsx";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             </ProtectedRoute>
           }>
             <Route index element={<Dashboard />} />
+            <Route path="opportunities" element={<Opportunities />} />
             <Route path="courses" element={<Courses />} />
             <Route path="profile" element={<Profile />} />
           </Route>

@@ -6,6 +6,9 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const User=require('./models/User');
 const app=express();
+const Job=require('./models/jobs');
+
+
 app.use(cors());
 app.use(express.json());
 mongoose.connect(process.env.MONGO_URI).then(()=>{
@@ -106,6 +109,37 @@ app.post("/api/login", async (req, res) => {
         });
     }
 });
+
+app.post("/api/jobs", async (req, res) => {
+    try {
+        const { logourl, jobTitle, description, skills, salary, workModel, lastDate } = req.body;
+
+        const newJob = new Job({
+            logoUrl: logourl,
+            jobTitle: jobTitle,
+            description: description,
+            skills: skills,
+            expectedSalary: salary,
+            workModel: workModel,
+            lastDateToApply: lastDate
+        });
+
+        await newJob.save();
+
+        return res.status(201).json({
+            message: "Job created successfully",
+            job: newJob
+        });
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Failed to create job",
+            error: error.message
+        });
+    }
+});
+
 app.listen(process.env.PORT,()=>{
     console.log(`server running on port ${process.env.PORT}`);
 });
