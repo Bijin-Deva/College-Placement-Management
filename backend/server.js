@@ -140,6 +140,37 @@ app.post("/api/jobs", async (req, res) => {
     }
 });
 
+app.get('/api/jobs', async (req, res) => {
+  try {
+    // Fetch all jobs from your database collection
+    const allJobs = await Job.find({}); 
+    
+    // Send them back as an array to your frontend
+    res.status(200).json(allJobs); 
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve jobs" });
+  }
+});
+
+
+app.put('/api/jobs/:id', async (req, res) => {
+  try {
+    const updatedJob = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json({ success: true, job: updatedJob });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update" });
+  }
+});
+
+app.delete('/api/jobs/:id', async (req, res) => {
+  try {
+    await Job.findByIdAndDelete(req.params.id);
+    res.status(200).json({ success: true, message: "Job deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete" });
+  }
+});
+
 app.listen(process.env.PORT,()=>{
     console.log(`server running on port ${process.env.PORT}`);
 });
