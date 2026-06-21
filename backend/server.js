@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const User=require('./models/User');
 const app=express();
 const Job=require('./models/jobs');
-
+const Course=require('./models/Course');
 
 app.use(cors());
 app.use(express.json());
@@ -140,18 +140,86 @@ app.post("/api/jobs", async (req, res) => {
     }
 });
 
+app.post('/api/courses', async (req, res) => {
+    try {
+        const { logoUrl, courseTitle, description, skills, courseLink } = req.body;
+        const newCourse = new Course({ logoUrl, courseTitle, description, courseLink });
+        const savedCourse = await newCourse.save();
+        res.status(201).json(savedCourse);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+app.get('/api/courses', async (req, res) => {
+    try {
+        const courses = await Course.find({});
+        res.status(200).json(courses);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.put('/api/courses/:id', async (req, res) => {
+    try {
+        const { logoUrl, courseTitle, description, courseLink } = req.body;
+        
+        const updatedCourse = await Course.findByIdAndUpdate(
+            req.params.id,
+            { logoUrl, courseTitle, description, courseLink },
+            { new: true, runValidators: true } 
+        );
+
+        if (!updatedCourse) {
+            return res.status(404).json({ message: "Course not found" });
+        }
+
+        res.status(200).json(updatedCourse);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+
+app.delete('/api/courses/:id', async (req, res) => {
+    try {
+        const deletedCourse = await Course.findByIdAndDelete(req.params.id);
+
+        if (!deletedCourse) {
+            return res.status(404).json({ message: "Course not found" });
+        }
+
+        res.status(200).json({ message: "Course deleted successfully", deletedCourse });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 app.get('/api/jobs', async (req, res) => {
   try {
-    // Fetch all jobs from your database collection
+    
     const allJobs = await Job.find({}); 
     
-    // Send them back as an array to your frontend
+    
     res.status(200).json(allJobs); 
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve jobs" });
   }
 });
 
+app.put('/courses/:id', async (req, res) => {
+    try {
+        const updatedCourse = await Course.findByIdAndUpdate(
+            req.params.id, 
+            req.body, 
+            { new: true, runValidators: true }
+        );
+        if (!updatedCourse) return res.status(404).json({ message: "Course not found" });
+        res.status(200).json(updatedCourse);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
 
 app.put('/api/jobs/:id', async (req, res) => {
   try {
