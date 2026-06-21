@@ -166,7 +166,7 @@ export default function JobManager() {
         </div>
       )}
 
-      <div style={{ marginTop: "30px", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "25px" }}>
+      <div style={{marginBottom:'35px', marginTop: "30px", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "25px" }}>
         {jobs.map((job, index) => (
           <div key={job._id || index} style={cardStyle}>
             

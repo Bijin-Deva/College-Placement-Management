@@ -95,7 +95,7 @@ app.post("/api/login", async (req, res) => {
             token,
             user: {
                 id: existingUser._id,
-                fullName: existingUser.fullName,
+                fullName: existingUser.username,
                 collegeemail: existingUser.collegeemail,
             },
         });

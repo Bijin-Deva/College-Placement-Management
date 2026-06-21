@@ -30,7 +30,7 @@ function LoginPage(){
             localStorage.setItem("user",JSON.stringify(response.data.user));
         
             alert(response.data.message);
-                navigate("/dashboard");
+                navigate("/home");
         }catch(error){
             alert(error.response.data.message);
         }

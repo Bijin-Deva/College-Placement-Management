@@ -8,6 +8,7 @@ import Courses from "./pages/courses";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile.jsx";
 import Opportunities from "./pages/Opportunities.jsx";
+import Home from "./pages/Home.jsx";
 
 function App() {
   return (
@@ -19,13 +20,14 @@ function App() {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
 
         <Route
-          path="/dashboard"
+          path="/home"
           element={
             <ProtectedRoute>
               <DashboardLayout />
             </ProtectedRoute>
           }>
-            <Route index element={<Dashboard />} />
+            <Route index element={<Home />} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="opportunities" element={<Opportunities />} />
             <Route path="courses" element={<Courses />} />
             <Route path="profile" element={<Profile />} />
