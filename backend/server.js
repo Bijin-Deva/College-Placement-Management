@@ -8,6 +8,7 @@ const User=require('./models/User');
 const app=express();
 const Job=require('./models/jobs');
 const Course=require('./models/Course');
+const StudentProfile = require("./models/StudentProfile");
 
 app.use(cors());
 app.use(express.json());
@@ -95,8 +96,15 @@ app.post("/api/login", async (req, res) => {
             token,
             user: {
                 id: existingUser._id,
-                fullName: existingUser.username,
+                fullName: existingUser.fullName,
+                username: existingUser.username,
                 collegeemail: existingUser.collegeemail,
+                personalemail: existingUser.personalemail,
+                gender: existingUser.gender,
+                rollnumber: existingUser.rollnumber,
+                year: existingUser.year,
+                department: existingUser.department,
+                skills: existingUser.skills,
             },
         });
 
@@ -241,4 +249,102 @@ app.delete('/api/jobs/:id', async (req, res) => {
 
 app.listen(process.env.PORT,()=>{
     console.log(`server running on port ${process.env.PORT}`);
+});
+
+
+app.get("/api/profile/:collegeemail", async (req, res) => {
+    try {
+
+        const { collegeemail } = req.params;
+
+        // Get basic user details
+        const user = await User.findOne({ collegeemail });
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        // Get additional profile details
+        const profile = await StudentProfile.findOne({ collegeemail });
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                user,
+                profile
+            }
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch profile",
+            error: error.message
+        });
+
+    }
+});
+
+
+app.put("/api/profile/update/:collegeemail", async (req, res) => {
+    try {
+
+        const { collegeemail } = req.params;
+
+        // Verify user exists
+        const existingUser = await User.findOne({ collegeemail });
+
+        if (!existingUser) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        const updatedData = {};
+
+        Object.keys(req.body).forEach((key)=>{
+
+            if(req.body[key]!==undefined){
+
+                updatedData[key]=req.body[key];
+
+            }
+
+        });
+        
+
+        const updatedProfile = await StudentProfile.findOneAndUpdate(
+            { collegeemail },
+            updatedData,
+            {
+                returnDocument: "after",
+                upsert: true,
+                runValidators: true,
+                setDefaultsOnInsert: true,
+            }
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            profile: updatedProfile
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to update profile",
+            error: error.message
+        });
+
+    }
 });
