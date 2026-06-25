@@ -185,6 +185,7 @@ function RegistrationPage(){
                           <option>Select Department</option>
                           <option>CSE</option>
                           <option>CSM</option>
+                          <option>CSD</option>
                           <option>ECE</option>
                           <option>EEE</option>
                           <option>CIV</option>
